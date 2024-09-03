@@ -39,3 +39,5 @@ C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Microsoft.EntityF
 C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\MySqlConnector.dll
 C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\João Victor\Desktop\Curso\FilmesApi\obj\Debug\net8.0\FilmesApi.sourcelink.json
+C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

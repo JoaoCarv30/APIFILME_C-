@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<FilmeContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("FilmeConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("FilmeConnection"))));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Adiciona o AutoMapper.
+
 // Add services to the container.
 builder.Services.AddControllers(); // Adiciona os serviços de controladores.
 builder.Services.AddEndpointsApiExplorer();

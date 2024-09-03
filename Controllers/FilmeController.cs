@@ -1,4 +1,6 @@
+using AutoMapper;
 using FilmesApi.Data;
+using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +12,18 @@ namespace FilmesApi.Controllers
     {
 
        private FilmeContext _context;
-        public FilmeController(FilmeContext context)
+       private IMapper _mapper;
+        public FilmeController(FilmeContext context, IMapper mapper)
         {
             _context = context; //Injeção de dependência.
+            _mapper = mapper;
         }
+       
 
         [HttpPost]
-        public IActionResult AdicionaFilme([FromBody] Filme filme)
+        public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
         {
+            Filme filme = _mapper.Map<Filme>(filmeDto); //Cria um novo filme.
             _context.Filmes.Add(filme); //Adiciona o filme no contexto.
             _context.SaveChanges(); //Salva as alterações no banco de dados.
           return  CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme); //Retorna o filme criado.
