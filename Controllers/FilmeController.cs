@@ -99,6 +99,23 @@ namespace FilmesApi.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeletaFilme(int id)
+        {
+            var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id); //Busca o filme pelo id.
+
+            if (filme == null) //Se o filme não existir, retorna NotFound.
+            {
+                return NotFound();
+            }
+
+            _context.Remove(filme); //Remove o filme do contexto.
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
 
 
     }
