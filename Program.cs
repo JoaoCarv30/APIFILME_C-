@@ -1,5 +1,7 @@
+using System.Reflection;
 using FilmesApi.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,13 +12,21 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Adic
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson(); // Adiciona os serviços de controladores.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmesApi", Version = "v1" });
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
+    }
+);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{   
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 }

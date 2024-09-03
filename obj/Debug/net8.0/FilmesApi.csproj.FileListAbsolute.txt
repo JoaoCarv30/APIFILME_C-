@@ -45,3 +45,5 @@ C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Microsoft.AspNetC
 C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\João Victor\Desktop\Curso\FilmesApi\bin\Debug\net8.0\FilmesApi.xml
+C:\Users\João Victor\Desktop\Curso\FilmesApi\obj\Debug\net8.0\FilmesApi.xml

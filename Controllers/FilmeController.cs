@@ -22,6 +22,7 @@ namespace FilmesApi.Controllers
 
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
         {
             Filme filme = _mapper.Map<Filme>(filmeDto); //Cria um novo filme.
@@ -32,13 +33,14 @@ namespace FilmesApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Filme> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+        public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
-            //return filmes; //Retorna a lista de filmes.
-            // return filmes.Skip(0).Take(3); //Retorna os 3 primeiros filmes apenas.
-            return _context.Filmes.Skip(skip).Take(take); //Retorna os filmes de acordo com a paginação.
-                                                          // A URL DIGITADA FICARIA ASSIM: https://localhost:5074/Filme?skip=0&take=3 ME RETORNANDO OS 3 PRIMEIROS FILMES.
-                                                          //CASO EU N PASSE O SKIP E O TAKE NA URL ELE VAI RETORNAR OS PRIMEIROS 50 FILMES.
+            // //return filmes; //Retorna a lista de filmes.
+            // // return filmes.Skip(0).Take(3); //Retorna os 3 primeiros filmes apenas.
+            // return _context.Filmes.Skip(skip).Take(take); //Retorna os filmes de acordo com a paginação.
+            //                                               // A URL DIGITADA FICARIA ASSIM: https://localhost:5074/Filme?skip=0&take=3 ME RETORNANDO OS 3 PRIMEIROS FILMES.
+            //                                               //CASO EU N PASSE O SKIP E O TAKE NA URL ELE VAI RETORNAR OS PRIMEIROS 50 FILMES.
+            return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take)); //Retorna os filmes de acordo com a paginação.
 
         }
 
@@ -51,7 +53,8 @@ namespace FilmesApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(filme);
+            var filmeDto = _mapper.Map<ReadFilmeDto>(filme); //Cria um filmeDto com as informações do filme.
+            return Ok(filmeDto); //Retorna o filmeDto.
         }
 
         [HttpPut("{id}")]
