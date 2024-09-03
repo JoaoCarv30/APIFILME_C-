@@ -1,3 +1,4 @@
+using FilmesApi.Data;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,15 +9,18 @@ namespace FilmesApi.Controllers
     public class FilmeController : ControllerBase
     {
 
-        private static List<Filme> filmes = new List<Filme>();
-        private static int id = 0;
+       private FilmeContext _context;
+        public FilmeController(FilmeContext context)
+        {
+            _context = context; //Injeção de dependência.
+        }
 
         [HttpPost]
         public IActionResult AdicionaFilme([FromBody] Filme filme)
         {
-            filme.Id = id++;
-            filmes.Add(filme);
-          return  CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme);
+            _context.Filmes.Add(filme); //Adiciona o filme no contexto.
+            _context.SaveChanges(); //Salva as alterações no banco de dados.
+          return  CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme); //Retorna o filme criado.
           
         }
 
@@ -25,7 +29,7 @@ namespace FilmesApi.Controllers
         {
             //return filmes; //Retorna a lista de filmes.
             // return filmes.Skip(0).Take(3); //Retorna os 3 primeiros filmes apenas.
-            return filmes.Skip(skip).Take(take); //Retorna os filmes de acordo com a paginação.
+            return _context.Filmes.Skip(skip).Take(take); //Retorna os filmes de acordo com a paginação.
                                                  // A URL DIGITADA FICARIA ASSIM: https://localhost:5074/Filme?skip=0&take=3 ME RETORNANDO OS 3 PRIMEIROS FILMES.
                                                  //CASO EU N PASSE O SKIP E O TAKE NA URL ELE VAI RETORNAR OS PRIMEIROS 50 FILMES.
 
@@ -34,7 +38,7 @@ namespace FilmesApi.Controllers
         [HttpGet("{id}")]
         public IActionResult? RecuperaFilmePorId(int id)
         {
-            var filme = filmes.FirstOrDefault(filme => filme.Id == id);
+            var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
             if (filme == null)
             {
