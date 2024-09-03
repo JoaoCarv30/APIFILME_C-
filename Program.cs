@@ -8,7 +8,7 @@ builder.Services.AddDbContext<FilmeContext>(options => options.UseMySql(builder.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Adiciona o AutoMapper.
 
 // Add services to the container.
-builder.Services.AddControllers(); // Adiciona os serviços de controladores.
+builder.Services.AddControllers().AddNewtonsoftJson(); // Adiciona os serviços de controladores.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -16,7 +16,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{
+{   
     app.UseSwagger();
     app.UseSwaggerUI();
 }
